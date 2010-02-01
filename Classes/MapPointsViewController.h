@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-@interface MapPointsViewController : UIViewController {
+@interface MapPointsViewController : UIViewController 
+<CLLocationManagerDelegate, MKMapViewDelegate> {
 
+    MKMapView *myMapView;
 }
+#pragma mark -
+#pragma mark properties
+@property(nonatomic, retain) IBOutlet MKMapView *myMapView;
 
 @end
 
