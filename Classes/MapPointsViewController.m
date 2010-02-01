@@ -19,7 +19,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // Load the points of interest. Very manual for now.    
     CLLocationCoordinate2D coord1 = { 37.323388, -122.013958 };
     PointOfInterest *pointOfInterest1 = [[PointOfInterest alloc] init];
@@ -38,7 +38,7 @@
     
     CLLocationCoordinate2D initialCenter = pointOfInterest1.coordinate;
     
-//  MKCoordinateSpan initialSpan = MKCoordinateSpanMake(0.454305, 0.398254);
+    //  MKCoordinateSpan initialSpan = MKCoordinateSpanMake(0.454305, 0.398254);
     MKCoordinateSpan initialSpan = MKCoordinateSpanMake(1.0, 1.0);
     
     MKCoordinateRegion initialRegion = MKCoordinateRegionMake(initialCenter, initialSpan);
@@ -106,14 +106,19 @@
 - (MKAnnotationView *)mapView:(MKMapView *)aMapView
             viewForAnnotation:(id <MKAnnotation>)annotation {
     
+    // Attempt to get an unused annotationView.  Returns nil if one isn't available.
+    // Ref http://developer.apple.com/iphone/library/documentation/MapKit/Reference/MKMapView_Class/MKMapView/MKMapView.html#//apple_ref/occ/instm/MKMapView/dequeueReusableAnnotationViewWithIdentifier:
     MKPinAnnotationView *annotationView = 
     (MKPinAnnotationView *) [aMapView dequeueReusableAnnotationViewWithIdentifier:@"myIdentifier"];
+    
+    // if dequeue didn't return an annotationView, allocate a new one
     if (nil == annotationView) {
         annotationView = [[[MKPinAnnotationView alloc] 
                            initWithAnnotation:annotation
                            reuseIdentifier:@"myIdentifier"]
                           autorelease];
     }
+    
     [annotationView setPinColor:MKPinAnnotationColorPurple];
     [annotationView setCanShowCallout:YES];
     [annotationView setAnimatesDrop:YES];
@@ -128,12 +133,6 @@
           aMapView.region.span.latitudeDelta, aMapView.region.span.longitudeDelta);
 }
 
-
-// TODO: implement
-// Used by the delegate to acquire an already allocated annotation view, in lieu of allocating a new one.
-//- (MKAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier {
-// return annotationView;   
-//}
 
 @end
 
