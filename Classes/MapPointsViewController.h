@@ -18,5 +18,7 @@
 #pragma mark properties
 @property(nonatomic, retain) IBOutlet MKMapView *myMapView;
 
+- (IBAction)nextAnnotation:(id)sender;
+
 @end
 

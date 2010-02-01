@@ -113,12 +113,14 @@
     
     // if dequeue didn't return an annotationView, allocate a new one
     if (nil == annotationView) {
+        NSLog(@"dequeue didn't return an annotationView, allocing a new one");
         annotationView = [[[MKPinAnnotationView alloc] 
                            initWithAnnotation:annotation
                            reuseIdentifier:@"myIdentifier"]
                           autorelease];
-    }
-    
+    } else {
+        NSLog(@"dequeueReusableAnnotationViewWithIdentifier returned an annotationView");
+    }    
     [annotationView setPinColor:MKPinAnnotationColorPurple];
     [annotationView setCanShowCallout:YES];
     [annotationView setAnimatesDrop:YES];
@@ -131,6 +133,27 @@
     NSLog(@"lat: %f, long: %f, latDelta: %f, longDelta: %f",
           aMapView.region.center.latitude, aMapView.region.center.longitude, 
           aMapView.region.span.latitudeDelta, aMapView.region.span.longitudeDelta);
+}
+
+#pragma mark -
+// Ref http://stackoverflow.com/questions/1131101/whats-wrong-with-this-randomize-function
+// Note this works for arguments in either algebraic order.  i.e. it works if minimum > maximum
+- (float)randomValueBetweenMin:(float)minimum andMax:(float)maximum {
+    return (((float) arc4random() / 0xFFFFFFFFu) * (maximum - minimum)) + minimum;
+}
+
+
+- (IBAction)nextAnnotation:(id)sender {
+    float nextLatitude = [self randomValueBetweenMin:37.1 andMax:37.4];
+    float nextLongitude = [self randomValueBetweenMin:-122.3 andMax:-122.0];    
+    CLLocationCoordinate2D nextCoord = {nextLatitude, nextLongitude};
+    
+    PointOfInterest *nextPoint = [[PointOfInterest alloc] init];
+    nextPoint.coordinate = nextCoord;
+    nextPoint.title = @"Next point";
+    
+    [self.myMapView addAnnotation:nextPoint];
+    [nextPoint release], nextPoint = nil;    
 }
 
 
