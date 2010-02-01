@@ -32,7 +32,7 @@
     PointOfInterest *pointOfIntererst2 = [[PointOfInterest alloc] init];
     pointOfIntererst2.coordinate = coord2;
     pointOfIntererst2.title = @"Point 2";
-        
+    
     CLLocationCoordinate2D initialCenter = pointOfInterest1.coordinate;
     
     //  MKCoordinateSpan initialSpan = MKCoordinateSpanMake(0.454305, 0.398254);
@@ -98,27 +98,35 @@
 
 #pragma mark -
 #pragma mark MKMapViewDelegate methods
-- (MKAnnotationView *)mapView:(MKMapView *)aMapView
-            viewForAnnotation:(id <MKAnnotation>)annotation {
+// Ref Dudney sec 25.3
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
-    // Attempt to get an unused annotationView.  Returns nil if one isn't available.
-    // Ref http://developer.apple.com/iphone/library/documentation/MapKit/Reference/MKMapView_Class/MKMapView/MKMapView.html#//apple_ref/occ/instm/MKMapView/dequeueReusableAnnotationViewWithIdentifier:
-    MKPinAnnotationView *annotationView = 
-    (MKPinAnnotationView *) [aMapView dequeueReusableAnnotationViewWithIdentifier:@"myIdentifier"];
+    MKPinAnnotationView *annotationView = nil;
     
-    // if dequeue didn't return an annotationView, allocate a new one
-    if (nil == annotationView) {
-        NSLog(@"dequeue didn't return an annotationView, allocing a new one");
-        annotationView = [[[MKPinAnnotationView alloc] 
-                           initWithAnnotation:annotation
-                           reuseIdentifier:@"myIdentifier"]
-                          autorelease];
+    if(annotation != mapView.userLocation)
+    {
+        
+        // Attempt to get an unused annotationView.  Returns nil if one isn't available.
+        // Ref http://developer.apple.com/iphone/library/documentation/MapKit/Reference/MKMapView_Class/MKMapView/MKMapView.html#//apple_ref/occ/instm/MKMapView/dequeueReusableAnnotationViewWithIdentifier:
+        annotationView = (MKPinAnnotationView *)
+        [mapView dequeueReusableAnnotationViewWithIdentifier:@"myIdentifier"];
+        
+        // if dequeue didn't return an annotationView, allocate a new one
+        if (nil == annotationView) {
+            //NSLog(@"dequeue didn't return an annotationView, allocing a new one");
+            annotationView = [[[MKPinAnnotationView alloc] 
+                               initWithAnnotation:annotation
+                               reuseIdentifier:@"myIdentifier"]
+                              autorelease];
+        } else {
+            NSLog(@"dequeueReusableAnnotationViewWithIdentifier returned an annotationView");
+        }    
+        [annotationView setPinColor:MKPinAnnotationColorPurple];
+        [annotationView setCanShowCallout:YES];
+        [annotationView setAnimatesDrop:YES];
     } else {
-        NSLog(@"dequeueReusableAnnotationViewWithIdentifier returned an annotationView");
-    }    
-    [annotationView setPinColor:MKPinAnnotationColorPurple];
-    [annotationView setCanShowCallout:YES];
-    [annotationView setAnimatesDrop:YES];
+        [mapView.userLocation setTitle:@"I am here"];
+    }
     return annotationView;
 }
 
@@ -139,6 +147,9 @@
 
 
 - (IBAction)nextAnnotation:(id)sender {
+    
+    for (int i=0; i<1000; i++) {
+    
     float nextLatitude = [self randomValueBetweenMin:47.55 andMax:47.65];
     float nextLongitude = [self randomValueBetweenMin:-122.35 andMax:-122.15];    
     CLLocationCoordinate2D nextCoord = {nextLatitude, nextLongitude};
@@ -148,7 +159,9 @@
     nextPoint.title = @"Next point";
     
     [self.myMapView addAnnotation:nextPoint];
-    [nextPoint release], nextPoint = nil;    
+    [nextPoint release], nextPoint = nil; 
+        
+    }
 }
 
 
