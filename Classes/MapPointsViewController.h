@@ -13,10 +13,12 @@
 <CLLocationManagerDelegate, MKMapViewDelegate> {
 
     MKMapView *myMapView;
+    UILabel *annotationsCountLabel;
 }
 #pragma mark -
 #pragma mark properties
 @property(nonatomic, retain) IBOutlet MKMapView *myMapView;
+@property(nonatomic, retain) IBOutlet UILabel *annotationsCountLabel;
 
 - (IBAction)nextAnnotation:(id)sender;
 

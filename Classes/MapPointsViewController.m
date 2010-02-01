@@ -14,6 +14,12 @@
 #pragma mark -
 #pragma mark properties
 @synthesize myMapView;
+@synthesize annotationsCountLabel;
+
+-(void)updateAnnotationsCountLabel {
+    self.annotationsCountLabel.text = 
+    [NSString stringWithFormat:@"annotations count = %d", myMapView.annotations.count];
+}
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -45,6 +51,7 @@
     [self.myMapView addAnnotation:pointOfIntererst2];
     [pointOfInterest1 release], pointOfInterest1 = nil;
     [pointOfIntererst2 release], pointOfIntererst2 = nil;
+    [self updateAnnotationsCountLabel];
 }
 
 
@@ -57,6 +64,7 @@
 // use cleanUp method to avoid repeating code in setView, viewDidUnload, and dealloc
 - (void)cleanUp {
     [myMapView release], myMapView = nil;
+    [annotationsCountLabel release], annotationsCountLabel = nil;
 }
 
 
@@ -105,7 +113,6 @@
     
     if(annotation != mapView.userLocation)
     {
-        
         // Attempt to get an unused annotationView.  Returns nil if one isn't available.
         // Ref http://developer.apple.com/iphone/library/documentation/MapKit/Reference/MKMapView_Class/MKMapView/MKMapView.html#//apple_ref/occ/instm/MKMapView/dequeueReusableAnnotationViewWithIdentifier:
         annotationView = (MKPinAnnotationView *)
@@ -113,7 +120,7 @@
         
         // if dequeue didn't return an annotationView, allocate a new one
         if (nil == annotationView) {
-            //NSLog(@"dequeue didn't return an annotationView, allocing a new one");
+            // NSLog(@"dequeue didn't return an annotationView, allocing a new one");
             annotationView = [[[MKPinAnnotationView alloc] 
                                initWithAnnotation:annotation
                                reuseIdentifier:@"myIdentifier"]
@@ -162,6 +169,8 @@
     [nextPoint release], nextPoint = nil; 
         
     }
+    NSLog(@"annotations count = %d", myMapView.annotations.count);
+    [self updateAnnotationsCountLabel];
 }
 
 
