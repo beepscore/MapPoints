@@ -18,7 +18,7 @@
 
 -(void)updateAnnotationsCountLabel {
     self.annotationsCountLabel.text = 
-    [NSString stringWithFormat:@"annotations count = %d", myMapView.annotations.count];
+    [NSString stringWithFormat:@"%d annotations", myMapView.annotations.count];
 }
 
 
@@ -155,12 +155,12 @@
 
 - (IBAction)nextAnnotation:(id)sender {
     
-    for (int i=0; i<1000; i++) {
+    for (int i=0; i<2000; i++) {
     
 //    float nextLatitude = [self randomValueBetweenMin:47.55 andMax:47.65];
 //    float nextLongitude = [self randomValueBetweenMin:-122.35 andMax:-122.15];    
-    float nextLatitude = [self randomValueBetweenMin:40.55 andMax:47.65];
-    float nextLongitude = [self randomValueBetweenMin:-120.35 andMax:-122.15];    
+    float nextLatitude = [self randomValueBetweenMin:45.7 andMax:47.7];
+    float nextLongitude = [self randomValueBetweenMin:-122.5 andMax:-118.5];    
     CLLocationCoordinate2D nextCoord = {nextLatitude, nextLongitude};
     
     PointOfInterest *nextPoint = [[PointOfInterest alloc] init];
@@ -171,7 +171,6 @@
     [nextPoint release], nextPoint = nil; 
         
     }
-    NSLog(@"annotations count = %d", myMapView.annotations.count);
     [self updateAnnotationsCountLabel];
 }
 
