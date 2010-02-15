@@ -225,7 +225,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A65040-4B3B-4BE0-A7DA-7AE9A94A46CE";
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos3.1.3;
 			};
 			name = Debug;
 		};
@@ -239,7 +239,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A65040-4B3B-4BE0-A7DA-7AE9A94A46CE";
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos3.1.3;
 			};
 			name = Release;
 		};
