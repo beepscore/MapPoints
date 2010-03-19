@@ -148,8 +148,8 @@
 #pragma mark -
 // Ref http://stackoverflow.com/questions/1131101/whats-wrong-with-this-randomize-function
 // Note this works for arguments in either algebraic order.  i.e. it works if minimum > maximum
-- (float)randomValueBetweenMin:(float)minimum andMax:(float)maximum {
-    return (((float) arc4random() / 0xFFFFFFFFu) * (maximum - minimum)) + minimum;
+- (CGFloat)randomFloatBetweenMin:(CGFloat)minimum andMax:(CGFloat)maximum {
+    return (((CGFloat) arc4random() / 0xFFFFFFFFu) * (maximum - minimum)) + minimum;
 }
 
 
@@ -157,10 +157,10 @@
     
     for (int i=0; i<2000; i++) {
     
-//    float nextLatitude = [self randomValueBetweenMin:47.55 andMax:47.65];
-//    float nextLongitude = [self randomValueBetweenMin:-122.35 andMax:-122.15];    
-    float nextLatitude = [self randomValueBetweenMin:45.7 andMax:47.7];
-    float nextLongitude = [self randomValueBetweenMin:-122.5 andMax:-118.5];    
+//    CGFloat nextLatitude = [self randomFloatBetweenMin:47.55 andMax:47.65];
+//    CGFloat nextLongitude = [self randomFloatBetweenMin:-122.35 andMax:-122.15];    
+    CGFloat nextLatitude = [self randomFloatBetweenMin:45.7 andMax:47.7];
+    CGFloat nextLongitude = [self randomFloatBetweenMin:-122.5 andMax:-118.5];    
     CLLocationCoordinate2D nextCoord = {nextLatitude, nextLongitude};
     
     PointOfInterest *nextPoint = [[PointOfInterest alloc] init];
