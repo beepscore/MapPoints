@@ -83,6 +83,8 @@
 
 
 - (void)dealloc {
+    [myMapView release], myMapView = nil;
+    [annotationsCountLabel release], annotationsCountLabel = nil;
 
     [super dealloc];
 }

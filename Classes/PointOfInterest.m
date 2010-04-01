@@ -17,8 +17,8 @@
 
 - (void) dealloc
 {
-    [title release]; title = nil;
-    [subtitle release]; subtitle = nil;
+    [title release], title = nil;
+    [subtitle release], subtitle = nil;
     [super dealloc];
 }
 
