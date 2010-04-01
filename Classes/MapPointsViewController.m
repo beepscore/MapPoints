@@ -16,6 +16,7 @@
 @synthesize myMapView;
 @synthesize annotationsCountLabel;
 
+
 -(void)updateAnnotationsCountLabel {
     self.annotationsCountLabel.text = 
     [NSString stringWithFormat:@"%d annotations", myMapView.annotations.count];
@@ -60,30 +61,7 @@
 }
 
 
-#pragma mark destructors and memory cleanUp
-// use cleanUp method to avoid repeating code in setView, viewDidUnload, and dealloc
-- (void)cleanUp {
-    [myMapView release], myMapView = nil;
-    [annotationsCountLabel release], annotationsCountLabel = nil;
-}
-
-
-// Release IBOutlets in setView.  
-// Ref http://developer.apple.com/iPhone/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
-//
-// http://moodle.extn.washington.edu/mod/forum/discuss.php?d=3162
-- (void)setView:(UIView *)aView {
-    
-    if (!aView) { // view is being set to nil        
-        // set outlets to nil, e.g. 
-        // self.anOutlet = nil;
-        [self cleanUp];
-    }    
-    // Invoke super's implementation last    
-    [super setView:aView];    
-}
-
-
+#pragma mark Memory management
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -92,14 +70,20 @@
 }
 
 
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
-	[self cleanUp];
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.myMapView = nil;
+    self.annotationsCountLabel = nil;
+    
+    [super viewDidUnload];
 }
 
 
 - (void)dealloc {
-    [self cleanUp];
+
     [super dealloc];
 }
 
@@ -173,7 +157,6 @@
     }
     [self updateAnnotationsCountLabel];
 }
-
 
 @end
 
