@@ -9,9 +9,7 @@
 #import <MapKit/MapKit.h>
 
 @interface PointOfInterest : NSObject <MKAnnotation> {
-    CLLocationCoordinate2D coordinate;
-    NSString *title;
-    NSString *subtitle;
+    // Xcode will automatically add instance variables to back properties
 }
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;

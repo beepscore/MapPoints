@@ -11,9 +11,7 @@
 
 @interface MapPointsViewController : UIViewController 
 <CLLocationManagerDelegate, MKMapViewDelegate> {
-
-    MKMapView *myMapView;
-    UILabel *annotationsCountLabel;
+    // Xcode will automatically add instance variables to back properties
 }
 #pragma mark -
 #pragma mark properties

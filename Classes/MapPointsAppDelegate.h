@@ -11,8 +11,7 @@
 @class MapPointsViewController;
 
 @interface MapPointsAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    MapPointsViewController *viewController;
+    // Xcode will automatically add instance variables to back properties
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
